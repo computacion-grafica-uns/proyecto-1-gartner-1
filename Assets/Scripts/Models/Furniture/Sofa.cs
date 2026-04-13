@@ -15,7 +15,7 @@ public class Sofa : CustomGameObject
         Color[] colors = new Color[vertices.Length];
         for (int i = 0; i < colors.Length; i++)
         {
-            colors[i] = Color.blue;
+            colors[i] = new Color(0.58f, 0.60f, 0.62f);
         }
 
         return new MeshData(vertices, triangles, colors);

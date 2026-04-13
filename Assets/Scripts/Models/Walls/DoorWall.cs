@@ -34,7 +34,13 @@ public class DoorWall : CustomGameObject
             8,10,11,
         };
 
-        return new MeshData(vertices, triangles, null);
+        Color[] colors = new Color[vertices.Length];
+        for (int i = 0; i < colors.Length; i++)
+        {
+            colors[i] = new Color(0.96f, 0.95f, 0.92f);
+        }
+
+        return new MeshData(vertices, triangles, colors);
     }
 
     public override void Create()

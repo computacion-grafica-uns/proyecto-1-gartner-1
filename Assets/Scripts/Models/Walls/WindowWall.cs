@@ -38,10 +38,11 @@ public class WindowWall : CustomGameObject
           6, 10, 11
         };
 
-        Color[] colors = new Color[]
+        Color[] colors = new Color[vertices.Length];
+        for (int i = 0; i < colors.Length; i++)
         {
-          Color.white
-        };
+            colors[i] = new Color(0.96f, 0.95f, 0.92f);
+        }
 
         return new MeshData(vertices, triangles, colors);
     }
