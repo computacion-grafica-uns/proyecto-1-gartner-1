@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using UnityEngine;
 
-public class FileReader : MonoBehaviour
+public class FileReader
 {
     List<Vector3> vertices = new List<Vector3>();
     List<int> triangles = new List<int>();
@@ -20,9 +21,18 @@ public class FileReader : MonoBehaviour
         }
 
         ParseOBJ(fileData);
-        CreateMesh();
+        CenterAndPlaceOnGround();
     }
 
+    public List<Vector3> GetVertices()
+    {
+        return vertices;
+    }
+
+    public List<int> GetTriangles()
+    {
+        return triangles;
+    }
 
     void ParseOBJ(string fileData)
     {
@@ -31,13 +41,15 @@ public class FileReader : MonoBehaviour
         foreach (string rawLine in lines)
         {
             string line = rawLine.Trim();
+            if (string.IsNullOrWhiteSpace(line)) continue;
+
             string[] parts = line.Split(' ', System.StringSplitOptions.RemoveEmptyEntries);
 
             if (line.StartsWith("v "))
             {
-                float x = float.Parse(parts[1]);
-                float y = float.Parse(parts[2]);
-                float z = float.Parse(parts[3]);
+                float x = float.Parse(parts[1], CultureInfo.InvariantCulture);
+                float y = float.Parse(parts[2], CultureInfo.InvariantCulture);
+                float z = float.Parse(parts[3], CultureInfo.InvariantCulture);
 
                 vertices.Add(new Vector3(x, y, z));
             }
@@ -48,7 +60,6 @@ public class FileReader : MonoBehaviour
                 for (int i = 1; i < parts.Length; i++)
                 {
                     string[] sub = parts[i].Split('/');
-
                     face[i - 1] = int.Parse(sub[0]) - 1;
                 }
 
@@ -62,29 +73,15 @@ public class FileReader : MonoBehaviour
         }
     }
 
-    void CreateMesh()
-    {
-        CenterAndNormalizeModel();
-
-        Mesh mesh = new Mesh();
-        mesh.name = "OBJ Mesh";
-
-        mesh.SetVertices(vertices);
-        mesh.SetTriangles(triangles, 0);
-
-        mesh.RecalculateNormals();
-        mesh.RecalculateBounds();
-
-        Debug.Log(mesh.bounds.center);
-        Debug.Log(mesh.bounds.size);
-
-        GetComponent<MeshFilter>().mesh = mesh;
-    }
-
-  
-    void CenterAndNormalizeModel()
+    void CenterAndPlaceOnGround(float unitsToMeters = 1f)
     {
         if (vertices.Count == 0) return;
+
+        // Convertir unidades a metros
+        for (int i = 0; i < vertices.Count; i++)
+        {
+            vertices[i] *= unitsToMeters;
+        }
 
         Vector3 min = vertices[0];
         Vector3 max = vertices[0];
@@ -95,20 +92,15 @@ public class FileReader : MonoBehaviour
             max = Vector3.Max(max, v);
         }
 
-        Vector3 center = (min + max) / 2f;
-        Vector3 size = max - min;
+        float centerX = (min.x + max.x) / 2f;
+        float centerZ = (min.z + max.z) / 2f;
 
-        float maxDimension = Mathf.Max(size.x, size.y, size.z);
+        // Centro en XZ, base en y = 0
+        Vector3 offset = new Vector3(-centerX, -min.y, -centerZ);
 
         for (int i = 0; i < vertices.Count; i++)
         {
-            vertices[i] -= center;
-
-            if (maxDimension > 0f)
-            {
-                vertices[i] /= maxDimension;
-            }
+            vertices[i] += offset;
         }
     }
-    
 }
