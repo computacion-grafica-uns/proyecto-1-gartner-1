@@ -3,7 +3,7 @@ using UnityEngine;
 public class FirstPersonCamera : MonoBehaviour
 {
     [Header("Camera state")]
-    public Vector3 position = new Vector3(0f, 1.8f, -5f);
+    public Vector3 position = new Vector3(0f, 1.55f, -10f);
     public float yaw = 0f;
     public float pitch = 0f;
 
