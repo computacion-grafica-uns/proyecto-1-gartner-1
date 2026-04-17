@@ -39,4 +39,8 @@ public abstract class CustomGameObject
     {
         gameObject.GetComponent<MeshRenderer>().material.SetMatrix("_ModelMatrix", modelMatrix);
     }
+    public MeshRenderer GetRenderer()
+    {
+        return gameObject.GetComponent<MeshRenderer>();
+    }
 }
