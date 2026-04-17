@@ -1,10 +1,9 @@
 using UnityEngine;
-
-public class Sofa : CustomGameObject
+public class WideTable : CustomGameObject
 {
     protected override MeshData CreateMeshData()
     {
-        string path = "Assets/OBJModels/Furniture/Sofas/sofa/sofa.obj";
+        string path = "Assets/OBJModels/Furniture/tables/widetable/widetable.obj";
 
         FileReader fileReader = new FileReader();
         fileReader.LoadOBJ(path);
@@ -14,7 +13,7 @@ public class Sofa : CustomGameObject
         Color[] colors = new Color[vertices.Length];
         for (int i = 0; i < colors.Length; i++)
         {
-            colors[i] = new Color(0.58f, 0.60f, 0.62f);
+            colors[i] = new Color(0.36f, 0.25f, 0.20f);
         }
 
         return new MeshData(vertices, triangles, colors);
@@ -22,6 +21,6 @@ public class Sofa : CustomGameObject
 
     public override void Create()
     {
-        Create("Sofa");
+        Create("WideTable");
     }
 }

@@ -26,7 +26,6 @@ public class Floor : CustomGameObject
 
         return new MeshData(vertices, triangles, colors);
     }
-
     public override void Create()
     {
         Create("Floor");
