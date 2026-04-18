@@ -14,7 +14,7 @@ public class Chair : CustomGameObject
         Color[] colors = new Color[vertices.Length];
         for (int i = 0; i < colors.Length; i++)
         {
-            colors[i] = new Color(0.36f, 0.25f, 0.20f);
+            colors[i] = new Color(0.82f, 0.74f, 0.61f);
         }
 
         return new MeshData(vertices, triangles, colors);

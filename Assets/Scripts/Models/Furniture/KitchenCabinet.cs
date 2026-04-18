@@ -14,7 +14,7 @@ public class KitchenCabinet : CustomGameObject
         Color[] colors = new Color[vertices.Length];
         for (int i = 0; i < colors.Length; i++)
         {
-            colors[i] = new Color(0.36f, 0.25f, 0.20f);
+            colors[i] = new Color(0.78f, 0.70f, 0.58f);
         }
 
         return new MeshData(vertices, triangles, colors);

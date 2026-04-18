@@ -21,7 +21,7 @@ public class Floor : CustomGameObject
         Color[] colors = new Color[vertices.Length];
         for (int i = 0; i < colors.Length; i++)
         {
-            colors[i] = Color.gray;
+            colors[i] = new Color(0.82f, 0.78f, 0.73f);
         }
 
         return new MeshData(vertices, triangles, colors);

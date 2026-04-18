@@ -1,10 +1,9 @@
 using UnityEngine;
-
-public class KitchenCabinetRounded : CustomGameObject
+public class TVCabinet : CustomGameObject
 {
     protected override MeshData CreateMeshData()
     {
-        string path = "Assets/OBJModels/Furniture/Kitchen/Cabinets/KitchenCabinetRounded/KitchenCabinetRounded.obj";
+        string path = "Assets/OBJModels/Furniture/TVs/TVCabinet/TVCabinet.obj";
 
         FileReader fileReader = new FileReader();
         fileReader.LoadOBJ(path);
@@ -14,7 +13,7 @@ public class KitchenCabinetRounded : CustomGameObject
         Color[] colors = new Color[vertices.Length];
         for (int i = 0; i < colors.Length; i++)
         {
-            colors[i] = new Color(0.78f, 0.70f, 0.58f);
+            colors[i] = new Color(0.36f, 0.25f, 0.20f);
         }
 
         return new MeshData(vertices, triangles, colors);
@@ -22,6 +21,6 @@ public class KitchenCabinetRounded : CustomGameObject
 
     public override void Create()
     {
-        Create("KitchenCabinetRounded");
+        Create("TV Cabinet");
     }
 }

@@ -21,7 +21,7 @@ public class PlainWall : CustomGameObject
         Color[] colors = new Color[vertices.Length];
         for (int i = 0; i < colors.Length; i++)
         {
-            colors[i] = new Color(0.96f, 0.95f, 0.92f);
+            colors[i] = new Color(0.95f, 0.93f, 0.90f);
         }
 
         return new MeshData(vertices, triangles, colors);
