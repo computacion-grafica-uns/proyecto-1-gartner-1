@@ -8,7 +8,7 @@ public class FileReader
     List<Vector3> vertices = new List<Vector3>();
     List<int> triangles = new List<int>();
 
-    public void LoadOBJ(string path)
+    public void LoadOBJ(string path, float unitsToMeters = 1f)
     {
         vertices.Clear();
         triangles.Clear();
@@ -21,7 +21,7 @@ public class FileReader
         }
 
         ParseOBJ(fileData);
-        CenterAndPlaceOnGround();
+        CenterAndPlaceOnGround(unitsToMeters);
     }
 
     public List<Vector3> GetVertices()
@@ -73,7 +73,7 @@ public class FileReader
         }
     }
 
-    void CenterAndPlaceOnGround(float unitsToMeters = 1f)
+    void CenterAndPlaceOnGround(float unitsToMeters)
     {
         if (vertices.Count == 0) return;
 
