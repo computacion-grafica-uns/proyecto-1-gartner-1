@@ -6,7 +6,7 @@ public class TVCabinet : CustomGameObject
         string path = "Assets/OBJModels/Furniture/TVs/TVCabinet/TVCabinet.obj";
 
         FileReader fileReader = new FileReader();
-        fileReader.LoadOBJ(path);
+        fileReader.LoadOBJ(path, 0.001f);
         Vector3[] vertices = fileReader.GetVertices().ToArray();
         int[] triangles = fileReader.GetTriangles().ToArray();
 
