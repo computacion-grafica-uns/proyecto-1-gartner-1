@@ -42,6 +42,7 @@ public class FileReader
         {
             string line = rawLine.Trim();
             if (string.IsNullOrWhiteSpace(line)) continue;
+            if (line.StartsWith("#")) continue;
 
             string[] parts = line.Split(' ', System.StringSplitOptions.RemoveEmptyEntries);
 
@@ -60,7 +61,7 @@ public class FileReader
                 for (int i = 1; i < parts.Length; i++)
                 {
                     string[] sub = parts[i].Split('/');
-                    face[i - 1] = int.Parse(sub[0]) - 1;
+                    face[i - 1] = ParseOBJIndex(sub[0], vertices.Count);
                 }
 
                 for (int i = 1; i < face.Length - 1; i++)
@@ -73,11 +74,23 @@ public class FileReader
         }
     }
 
+    int ParseOBJIndex(string indexText, int vertexCount)
+    {
+        int index = int.Parse(indexText, CultureInfo.InvariantCulture);
+
+        if (index > 0)
+            return index - 1;
+
+        if (index < 0)
+            return vertexCount + index;
+
+        throw new System.Exception("OBJ index 0 no es válido.");
+    }
+
     void CenterAndPlaceOnGround(float unitsToMeters)
     {
         if (vertices.Count == 0) return;
 
-        // Convertir unidades a metros
         for (int i = 0; i < vertices.Count; i++)
         {
             vertices[i] *= unitsToMeters;
@@ -95,7 +108,6 @@ public class FileReader
         float centerX = (min.x + max.x) / 2f;
         float centerZ = (min.z + max.z) / 2f;
 
-        // Centro en XZ, base en y = 0
         Vector3 offset = new Vector3(-centerX, -min.y, -centerZ);
 
         for (int i = 0; i < vertices.Count; i++)
