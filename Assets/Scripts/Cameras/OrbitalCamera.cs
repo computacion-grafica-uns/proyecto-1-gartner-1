@@ -6,7 +6,7 @@ public class OrbitalCamera : MonoBehaviour
     public Vector3 target = Vector3.zero;
 
     [Header("Estado orbital")]
-    public float distance = 5f;
+    public float distance = 20f;
     public float yaw = 0f;
     public float pitch = 20f;
 
